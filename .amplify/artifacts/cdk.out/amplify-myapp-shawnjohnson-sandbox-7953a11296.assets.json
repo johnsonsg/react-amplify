@@ -1,0 +1,20 @@
+{
+  "version": "48.0.0",
+  "files": {
+    "56653803a1f001a4d766ad80f5f05b4f5834e3f6be01f51bb3b4459fa37d7ea8": {
+      "displayName": "amplify-myapp-shawnjohnson-sandbox-7953a11296 Template",
+      "source": {
+        "path": "amplify-myapp-shawnjohnson-sandbox-7953a11296.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region-70f9ee39": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "56653803a1f001a4d766ad80f5f05b4f5834e3f6be01f51bb3b4459fa37d7ea8.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
