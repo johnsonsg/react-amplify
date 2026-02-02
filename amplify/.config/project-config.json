@@ -14,5 +14,6 @@
   },
   "providers": [
     "awscloudformation"
-  ]
+  ],
+  "envName": "dev"
 }
