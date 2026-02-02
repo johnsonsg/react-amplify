@@ -15,7 +15,7 @@ function App({ signOut, user }) {
       <Card>
         <Heading level={1}>Hello {user.username}</Heading>
         <View as="p">You are now signed in!</View>
-        <p>Welcome to React Amplify!!!</p>
+        <p>Welcome to React Amplify Full Stack Tutorial</p>
       </Card>
        <Button onClick={signOut}>Sign Out</Button>
     </View>
