@@ -19,12 +19,14 @@ import {
 
 const client = generateClient();
 
-const App = ({ signOut }) => {
+export const App = ({ signOut, disableAutoFetch = false }) => {
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
-    fetchNotes();
-  }, []);
+    if (!disableAutoFetch) {
+      fetchNotes();
+    }
+  }, [disableAutoFetch]);
 
   async function fetchNotes() {
     const apiData = await client.graphql({ query: listNotes });
@@ -38,6 +40,7 @@ const App = ({ signOut }) => {
     const data = {
       name: form.get("name"),
       description: form.get("description"),
+      priority: form.get("priority"),
     };
     await client.graphql({
       query: createNoteMutation,
@@ -77,6 +80,13 @@ const App = ({ signOut }) => {
             variation="quiet"
             required
           />
+          <TextField
+            name="priority"
+            placeholder="Note Priority"
+            label="Note Priority"
+            labelHidden
+            variation="quiet"
+          />
           <Button type="submit" variation="primary">
             Create Note
           </Button>
@@ -95,6 +105,7 @@ const App = ({ signOut }) => {
               {note.name}
             </Text>
             <Text as="span">{note.description}</Text>
+            <Text as="span">{note.priority ? `Priority: ${note.priority}` : ""}</Text>
             <Button variation="link" onClick={() => deleteNote(note)}>
               Delete note
             </Button>

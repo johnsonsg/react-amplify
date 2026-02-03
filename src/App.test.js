@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import { App } from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('renders app heading', () => {
+  render(<App signOut={() => {}} disableAutoFetch={true} />);
+  const heading = screen.getByText(/my notes app/i);
+  expect(heading).toBeInTheDocument();
 });

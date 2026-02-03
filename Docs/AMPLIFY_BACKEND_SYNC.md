@@ -18,6 +18,32 @@
 - To sync changes from Studio: `amplify pull`
 - To deploy local changes: `amplify push`
 - In Amplify Console, connect your frontend branch to the correct backend environment (App settings > Backend environments)
+
+## Git + Deploy Workflow (Practical)
+
+### Common Git commands (quick cheat sheet)
+
+- Check what changed: `git status`
+- See line-level changes: `git diff`
+- Stage changes:
+  - stage everything: `git add -A`
+  - stage one file: `git add path/to/file`
+- Commit: `git commit -m "Your message"`
+- Push to GitHub: `git push origin main`
+- Pull latest from GitHub: `git pull`
+
+### When to use `git push` vs `amplify push`
+
+- **Frontend-only changes** (React code in `src/`, styling, etc.):
+  - `git add -A && git commit -m "..." && git push`
+  - Amplify Console builds/deploys the frontend from GitHub.
+
+- **Backend changes** (GraphQL schema, auth, functions, etc. under `amplify/`):
+  - Make the change (ex: edit `amplify/backend/api/.../schema.graphql`).
+  - Run `amplify push` to update the cloud backend and regenerate GraphQL artifacts.
+  - Then `git add -A && git commit -m "..." && git push` so the repo matches what’s deployed.
+
+> Note: If your Amplify Console branch is connected to a backend environment and your build pipeline is set up to deploy backend changes, then a `git push` may also trigger backend deployment. Many developers still prefer running `amplify push` intentionally for backend/infrastructure changes to stay in control of timing.
 ## 9. Connecting Frontend Branch to Backend Environment
 
 To connect your frontend branch to a backend environment in the Amplify Console:

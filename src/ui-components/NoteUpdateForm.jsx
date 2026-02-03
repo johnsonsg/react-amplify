@@ -27,11 +27,13 @@ export default function NoteUpdateForm(props) {
   const initialValues = {
     name: "",
     description: "",
+    priority: "",
   };
   const [name, setName] = React.useState(initialValues.name);
   const [description, setDescription] = React.useState(
     initialValues.description
   );
+  const [priority, setPriority] = React.useState(initialValues.priority);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = noteRecord
@@ -39,6 +41,7 @@ export default function NoteUpdateForm(props) {
       : initialValues;
     setName(cleanValues.name);
     setDescription(cleanValues.description);
+    setPriority(cleanValues.priority);
     setErrors({});
   };
   const [noteRecord, setNoteRecord] = React.useState(noteModelProp);
@@ -60,6 +63,7 @@ export default function NoteUpdateForm(props) {
   const validations = {
     name: [{ type: "Required" }],
     description: [],
+    priority: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -89,6 +93,7 @@ export default function NoteUpdateForm(props) {
         let modelFields = {
           name,
           description: description ?? null,
+          priority: priority ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -151,6 +156,7 @@ export default function NoteUpdateForm(props) {
             const modelFields = {
               name: value,
               description,
+              priority,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -176,6 +182,7 @@ export default function NoteUpdateForm(props) {
             const modelFields = {
               name,
               description: value,
+              priority,
             };
             const result = onChange(modelFields);
             value = result?.description ?? value;
@@ -189,6 +196,32 @@ export default function NoteUpdateForm(props) {
         errorMessage={errors.description?.errorMessage}
         hasError={errors.description?.hasError}
         {...getOverrideProps(overrides, "description")}
+      ></TextField>
+      <TextField
+        label="Priority"
+        isRequired={false}
+        isReadOnly={false}
+        value={priority}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              description,
+              priority: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.priority ?? value;
+          }
+          if (errors.priority?.hasError) {
+            runValidationTasks("priority", value);
+          }
+          setPriority(value);
+        }}
+        onBlur={() => runValidationTasks("priority", priority)}
+        errorMessage={errors.priority?.errorMessage}
+        hasError={errors.priority?.hasError}
+        {...getOverrideProps(overrides, "priority")}
       ></TextField>
       <Flex
         justifyContent="space-between"
